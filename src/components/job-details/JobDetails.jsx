@@ -1,12 +1,15 @@
 
 
-import { useLoaderData, useParams } from "react-router-dom";
+import { NavLink, useLoaderData, useParams } from "react-router-dom";
 import JobBanner from "./JobBanner";
 import { AiOutlineDollar } from "react-icons/ai"
 import { MdOutlineSubtitles } from "react-icons/md"
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdOutlineLocationOn } from "react-icons/md";
+import { setJobData } from "../../utility/loacalstorage";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -19,7 +22,20 @@ const {id} = useParams();
 const mainData = jobdata.find(datas => datas.id === parseInt(id));
 console.log(mainData);
 
-const {salary,  job_title, contact_information, } = mainData;
+const {salary,  job_title, contact_information } = mainData;
+
+const applayNowHandle = ()=> {
+
+setJobData(parseInt(id))
+
+}
+
+
+const toasti = ()=> {
+
+
+    toast('Applied done')
+}
     return (
         <div>
             <JobBanner></JobBanner>
@@ -67,10 +83,14 @@ const {salary,  job_title, contact_information, } = mainData;
  <span className="font-bold" >Email : {contact_information.email}</span> </p>
 
 <p className="flex gap-2 items-center mt-4 text-[#757575]" >  <MdOutlineLocationOn className="text-[40px]" /> <span className="font-bold" >Address: {contact_information.address}</span> </p>
+
+<NavLink onClick={toasti} ><button onClick={applayNowHandle}  className="btn bg-[#9478FF] text-white mt-5 w-full">  Apply now  </button></NavLink>
+
             </div>
 
 
-
+         
+            <ToastContainer />
         </div>
         </div>
     );
